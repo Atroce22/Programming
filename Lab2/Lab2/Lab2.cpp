@@ -60,10 +60,6 @@ void add(Character& ch, int exp)
     }
 }
 
-void attack(Character& target, Character& attacker)
-{
-    take_damage(target, attacker.damage);
-}
 
 void take_damage(Character& ch, int dmg)
 {
@@ -93,8 +89,8 @@ int main()
     add(player2, 512);
     display(player);
     display(player2);
-    //take_damage(player, 150);
-    //display(player);
+    take_damage(player, 150);
+    display(player);
     
 }
 
