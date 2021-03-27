@@ -1,4 +1,5 @@
 #pragma once
+#include "Equipment.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -24,8 +25,13 @@ public:
     int get_experience();
     int get_damage();
 
+    
+
 private:
     void update_data();
+    int get_equipment_damage();
+
+private:
     std::string name;
     std::string race;
     int level = 0;
@@ -34,5 +40,10 @@ private:
     int experience = 0;
     float damage = 0;
     bool dead = false;
+
+    Equipment* left_hand = nullptr;
+    Equipment* right_hand = nullptr;
+
+
 }; 
 

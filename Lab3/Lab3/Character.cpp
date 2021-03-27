@@ -24,7 +24,7 @@ std::string Character::read()
 
 void Character::display()
 {
-    std::cout << "Name: " << name << "\nRace: " << race << "\nLevel: " << level << "\nExperience: " << experience << " \/ 100" << "\nHealth: " << health << "\nMana: " << mana << "\nDamage: " << damage << "\n\n";
+    std::cout << "Name: " << name << "\nRace: " << race << "\nLevel: " << level << "\nExperience: " << experience << " \/ 100" << "\nHealth: " << health << "\nMana: " << mana << "\nDamage: " << get_damage() << " (" << damage << "+" << get_equipment_damage() << ")"   << "\n\n";
 }
 
 void Character::level_up()
@@ -62,6 +62,8 @@ void Character::init()
     name = names[std::rand() % names.size()];
     race = races[std::rand() % races.size()];
     level = std::rand() % 10 + 1;
+    left_hand = new Equipment(10);
+    right_hand = new Equipment();
     update_data();
 }
 
@@ -77,9 +79,19 @@ std::string Character::get_race()
     return race;
 }
 
+int Character::get_equipment_damage()
+{
+    int final_damage = 0;
+    if (left_hand != nullptr)
+        final_damage += left_hand->get_damage();
+    if (right_hand != nullptr)
+        final_damage += right_hand->get_damage();
+    return final_damage;
+}
+
 int Character::get_damage()
 {
-    return damage;
+    return damage + get_equipment_damage();
 }
 
 int Character::get_experience()
