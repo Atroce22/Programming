@@ -200,7 +200,7 @@ public class Main {
         player.get_left_hand().set_damage(-1);
         player.get_right_hand().set_damage(1000);
         Character.display(player);
-        
+
         Character player1 = new Character("New Name");
         player1.display();
 
@@ -210,6 +210,17 @@ public class Main {
             players[i] = new Character();
             players[i].display();
         }
+
+        Character[][] newplayers = new Character[2][2];
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                newplayers[i][j] = new Character();
+                newplayers[i][j].display();
+            }
+        }
+
         System.out.printf("Created characters count: %d%n", Character.get_counter());
     }
 }
