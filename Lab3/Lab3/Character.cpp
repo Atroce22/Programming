@@ -3,15 +3,14 @@
 #include <iostream>
 #include <ctime>
 
-void Character::init(const std::string& name)
+void Character::init(const std::string& name, Equipment* left, Equipment* right)
 {
     this->name = name;
     race = "Human";
     level = 1;
-    health = 40;
-    mana = 20;
-    damage = 5;
-    experience = 0;
+    left_hand = left;
+    right_hand = right;
+    update_data();
 }
 
 std::string Character::read()
@@ -24,7 +23,16 @@ std::string Character::read()
 
 void Character::display()
 {
-    std::cout << "Name: " << name << "\nRace: " << race << "\nLevel: " << level << "\nExperience: " << experience << " \/ 100" << "\nHealth: " << health << "\nMana: " << mana << "\nDamage: " << get_damage() << " (" << damage << "+" << get_equipment_damage() << ")"   << "\n\n";
+    std::cout << "Name: " << name << "\nRace: " << race << "\nLevel: " << level << "\nExperience: " << experience << " \/ 100" << "\nHealth: " << health << "\nMana: " << mana << "\nDamage: " << get_damage() << " (" << damage << "+" << get_equipment_damage() << ")"   << "\n";
+    if (left_hand != nullptr && left_hand->get_name() != "")
+    {
+        std::cout << left_hand->get_name() << ": " << left_hand->get_damage() << std::endl;
+    }
+    if (right_hand != nullptr && right_hand->get_name() != "")
+    {
+        std::cout << right_hand->get_name() << ": " << right_hand->get_damage() << std::endl;
+    }
+    std::cout << std::endl;
 }
 
 void Character::level_up()
@@ -62,8 +70,8 @@ void Character::init()
     name = names[std::rand() % names.size()];
     race = races[std::rand() % races.size()];
     level = std::rand() % 10 + 1;
-    left_hand = new Equipment(10);
-    right_hand = new Equipment();
+    left_hand = new Equipment(std::rand() % 10 + 1);
+    right_hand = new Equipment(std::rand() % 10 + 1);
     update_data();
 }
 
@@ -81,12 +89,9 @@ std::string Character::get_race()
 
 int Character::get_equipment_damage()
 {
-    int final_damage = 0;
-    if (left_hand != nullptr)
-        final_damage += left_hand->get_damage();
-    if (right_hand != nullptr)
-        final_damage += right_hand->get_damage();
-    return final_damage;
+    if (left_hand != nullptr && right_hand != nullptr)
+        return ((*left_hand) + (*right_hand)).get_damage();
+    return 0;
 }
 
 int Character::get_damage()
@@ -112,6 +117,15 @@ int Character::get_level()
 int Character::get_mana()
 {
     return mana;
+}
+
+Equipment* Character::get_left_hand()
+{
+    return left_hand;
+}
+Equipment& Character::get_right_hand() 
+{
+    return *right_hand;
 }
 
 

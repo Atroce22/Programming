@@ -3,14 +3,13 @@
 #include <string>
 #include <vector>
 #include <iostream>
-const std::vector<std::string> names = { "Lo Whitbottom", "Meginhard Swiftfoot", "Godomar Gawkroger", "Gerontius Chubb - Baggins", "Walcaud Leafwalker", "Griffon Harfoot", "Balbo Sackville", "Butilin Lothran", "Willehad Silverstring", "Berengar Undertree" };
-const std::vector<std::string> races = { "Human", "Orc", "Elf", "Hobbit", "Charr", "Norn" };
-
+static const std::vector<std::string> names = { "Lo Whitbottom", "Meginhard Swiftfoot", "Godomar Gawkroger", "Gerontius Chubb - Baggins", "Walcaud Leafwalker", "Griffon Harfoot", "Balbo Sackville", "Butilin Lothran", "Willehad Silverstring", "Berengar Undertree" };
+static const std::vector<std::string> races = { "Human", "Orc", "Elf", "Hobbit", "Charr", "Norn" };
 class Character
 {
 public:
     virtual ~Character() { std::cout << name <<" Destroyed!\n"; };
-    void init(const std::string& name);
+    void init(const std::string& name, Equipment* left, Equipment* right);
     void init();
     std::string read();
     void display();
@@ -24,8 +23,22 @@ public:
     int get_mana();
     int get_experience();
     int get_damage();
+    Equipment* get_left_hand();
+    Equipment& get_right_hand();
+    Character& operator ++() 
+    { 
+        level_up(); 
+        return *this; 
+    }
+    Character operator ++(int) 
+    { 
+        Character temp = *this;
+        //++*this;
+        level_up();
+        return temp; 
+    }
 
-    
+    friend void reset_level(Character& character);
 
 private:
     void update_data();
@@ -47,3 +60,8 @@ private:
 
 }; 
 
+static void reset_level(Character& character)
+{
+    character.level = 1;
+    character.update_data();
+}

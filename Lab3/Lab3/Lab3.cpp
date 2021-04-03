@@ -10,14 +10,22 @@ int main()
 {
     std::srand(std::time(0));
 
-
-
     //Динамический объект
     Character* player = new Character();
     std::string name = player->read();
-    player->init(name);
+    player->init(name, new Equipment(1, "Sword"), new Equipment(10, "Dagger"));
+    player->display();
+    ++(*player);
+    player->display();
+    (*player)++;
+    player->display();
+    reset_level(*player);
+    player->display();
+    player->get_left_hand()->set_damage(50);
+    player->get_right_hand().set_damage(25);
     player->display();
     delete player;
+
 
     //Массив объектов
     Character* players = new Character[PLAYERS_COUNT];
