@@ -1,6 +1,8 @@
 import java.util.Scanner;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+
 
 class Character {
     static class Increase {
@@ -124,6 +126,13 @@ class Character {
         return damage + get_equipment_damage();
     }
 
+    public Equipment get_left_hand() {
+        return left_hand;
+    }
+    public Equipment get_right_hand() {
+        return right_hand;
+    }
+
     private void update_data() {
         health = 40 * level;
         mana = 20 * level;
@@ -156,6 +165,30 @@ class Equipment {
     {
         return damage;
     }
+    public void set_damage(int value)
+        {
+            try
+            {
+                if (value < 0)
+                    throw new IOException("-1");
+                if (value >= 1000)
+                    throw new IOException("Too much damage");
+                damage = value;
+            }
+            catch (IOException a)
+            {
+                if (a.getMessage() == "-1")
+                {
+                    System.out.println("We caught an exception. Reset damage to 0\n");
+                    damage = 0;
+                }
+                else if (a.getMessage() == "Too much damage")
+                {
+                    System.out.println("We caught an exception. Reset damage to 999\n");
+                    damage = 999;
+                }
+            }
+        }
 }
 
 public class Main {
@@ -164,7 +197,10 @@ public class Main {
         player.display();
         player.level_up();
         Character.display(player);
-
+        player.get_left_hand().set_damage(-1);
+        player.get_right_hand().set_damage(1000);
+        Character.display(player);
+        
         Character player1 = new Character("New Name");
         player1.display();
 
