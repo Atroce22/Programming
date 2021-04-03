@@ -3,12 +3,19 @@ import java.util.List;
 import java.util.Random;
 
 class Character {
-    static class Increase{
+    static class Increase {
         public  static int inc(int num)
-           {
+        {
             return ++num;
-           }
         }
+    }
+
+    public static final List<String> NAMES = List.of("Lo Whitbottom", "Meginhard Swiftfoot", "Godomar Gawkroger", "Gerontius Chubb - Baggins", "Walcaud Leafwalker", "Griffon Harfoot", "Balbo Sackville", "Butilin Lothran", "Willehad Silverstring", "Berengar Undertree");
+    public static final List<String> RACES = List.of("Human", "Orc", "Elf", "Hobbit", "Charr", "Norn");
+    
+    private static int counter = 0;
+    private static Random random = new Random();
+
     private String name;
     private String race;
     private int level = 0;
@@ -17,20 +24,19 @@ class Character {
     private int experience = 0;
     private float damage = 0;
     private boolean dead = false;
-    private Random random = new Random();
-    public static final List<String> NAMES = List.of("Lo Whitbottom", "Meginhard Swiftfoot", "Godomar Gawkroger", "Gerontius Chubb - Baggins", "Walcaud Leafwalker", "Griffon Harfoot", "Balbo Sackville", "Butilin Lothran", "Willehad Silverstring", "Berengar Undertree");
-    public static final List<String> RACES = List.of("Human", "Orc", "Elf", "Hobbit", "Charr", "Norn");
+    private int id = 0;
+
     private Equipment left_hand = null;
     private Equipment right_hand = null;
     
-    public void init(String name) {
+    public void init(String name, Equipment left, Equipment right) {
         this.name = name;
         race = "Human";
         level = 1;
-        health = 40;
-        mana = 20;
-        damage = 5;
-        experience = 0;
+        left_hand = left;
+        right_hand = right;
+        id = counter++;
+        update_data();
     }
 
     public void init() {
@@ -39,6 +45,7 @@ class Character {
         level = random.nextInt(10) + 1;
         left_hand = new Equipment(random.nextInt(25) + 1);
         right_hand = new Equipment(random.nextInt(25) + 1);
+        id = counter++;
         update_data();
     }
 
@@ -50,9 +57,11 @@ class Character {
     }
 
     public void display() {
-        System.out.printf("Name: %s%nRace: %s%nLevel: %d%nExperience: %d / 100%nHealth: %d%nMana: %d%nDamage: %f (%f + %d)%n%n", name, race, level, experience, health, mana, get_damage(), damage, get_equipment_damage());
+        System.out.printf("ID: %d%nName: %s%nRace: %s%nLevel: %d%nExperience: %d / 100%nHealth: %d%nMana: %d%nDamage: %f (%f + %d)%n%n", id, name, race, level, experience, health, mana, get_damage(), damage, get_equipment_damage());
     }
-
+    public static void display(Character character) {
+        character.display();
+    }
     public void level_up() {
         level = Increase.inc(level);
         update_data();
@@ -76,6 +85,9 @@ class Character {
             dead = true;
             System.out.println("You're dead\n");
         }
+    }
+    public static int get_counter() {
+        return counter;
     }
 
     public String get_race() {
@@ -139,12 +151,12 @@ class Equipment {
 public class Main {
 	  public static void main(String[] args) { 
         Character player = new Character();
-        player.init("Player Name");
+        player.init("Player Name", new Equipment(20), new Equipment(15));
         player.display();
 
         player.level_up();
-        player.display();
-
+        //player.display();
+        Character.display(player);
         Character [] players = new Character[5];
         for (int i = 0; i < players.length; i++)
         {
@@ -152,5 +164,6 @@ public class Main {
             players[i].init();
             players[i].display();
         }
+        System.out.printf("Created characters count: %d%n", Character.get_counter());
     }
 }
