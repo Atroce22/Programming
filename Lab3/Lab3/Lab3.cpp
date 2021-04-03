@@ -68,5 +68,15 @@ int main()
     }
     playersList2.clear();
 
+    Character* newplayers[2][2];
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            newplayers[i][j] = new Character();
+            newplayers[i][j]->display();
+        }
+    }
+
     std::cout << "Characters created count: " << Character::get_counter();
 }
