@@ -22,7 +22,7 @@ namespace Lab6
             player.Display();
             LevelUp(ref player);
             player++;
-            player.Display();
+            Character.Display(player);
 
             Character[] players = new Character[5];
             for (int i = 0; i < players.Length; i++)
@@ -31,6 +31,7 @@ namespace Lab6
                 players[i].Init();
                 players[i].Display();
             }
+            Console.WriteLine("Created characters count: " + Character.GetCounter());
             Console.ReadKey();
         }
     }
