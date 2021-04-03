@@ -29,17 +29,27 @@ class Character {
     private Equipment left_hand = null;
     private Equipment right_hand = null;
     
-    public void init(String name, Equipment left, Equipment right) {
+    public Character(String name, String race, int level, Equipment left, Equipment right) {
         this.name = name;
-        race = "Human";
-        level = 1;
+        this.race = race;
+        this.level = level;
         left_hand = left;
         right_hand = right;
         id = counter++;
         update_data();
     }
 
-    public void init() {
+    public Character(String name) {
+        this.name = name;
+        race = RACES.get(random.nextInt(RACES.size()));
+        level = random.nextInt(10) + 1;
+        left_hand = new Equipment(random.nextInt(25) + 1);
+        right_hand = new Equipment(random.nextInt(25) + 1);
+        id = counter++;
+        update_data();
+    }
+
+    public Character() {
         name = NAMES.get(random.nextInt(NAMES.size()));
         race = RACES.get(random.nextInt(RACES.size()));
         level = random.nextInt(10) + 1;
@@ -150,18 +160,18 @@ class Equipment {
 
 public class Main {
 	  public static void main(String[] args) { 
-        Character player = new Character();
-        player.init("Player Name", new Equipment(20), new Equipment(15));
+        Character player = new Character("Player Name", "Human", 3, new Equipment(20), new Equipment(15));
         player.display();
-
         player.level_up();
-        //player.display();
         Character.display(player);
+
+        Character player1 = new Character("New Name");
+        player1.display();
+
         Character [] players = new Character[5];
         for (int i = 0; i < players.length; i++)
         {
             players[i] = new Character();
-            players[i].init();
             players[i].display();
         }
         System.out.printf("Created characters count: %d%n", Character.get_counter());
