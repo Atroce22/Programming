@@ -15,20 +15,21 @@ namespace Lab6
         static void Main(string[] args)
         {
             
-            Character player = new Character();
             string name;
             CreateDefaultName(out name);
-            player.Init(name, new Equipment(1), new Equipment(10));
+            Character player = new Character(name, "Human", 3, new Equipment(1), new Equipment(10));
             player.Display();
             LevelUp(ref player);
             player++;
             Character.Display(player);
 
+            Character player1 = new Character(name);
+            player1.Display();
+
             Character[] players = new Character[5];
             for (int i = 0; i < players.Length; i++)
             {
                 players[i] = new Character();
-                players[i].Init();
                 players[i].Display();
             }
             Console.WriteLine("Created characters count: " + Character.GetCounter());

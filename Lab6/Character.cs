@@ -33,19 +33,28 @@ namespace Lab6
         {
             return counter;
         }
-
-        public void Init(string name, Equipment left, Equipment right)
+        public Character(string name)
         {
             Name = name;
-            Race = "Human";
-            Level = 1;
+            Race = RACES[random.Next(RACES.Count)];
+            Level = random.Next(10) + 1;
+            leftHand = new Equipment(random.Next(25) + 1);
+            rightHand = new Equipment(random.Next(25) + 1);
+            Id = counter++;
+            UpdateData();
+        }
+        public Character(string name, string race, int level, Equipment left, Equipment right )
+        {
+            Name = name;
+            Race = race;
+            Level = level;
             leftHand = left;
             rightHand = right;
             Id = counter++;
             UpdateData();
         }
 
-        public void Init()
+        public Character()
         {
             Name = NAMES[random.Next(NAMES.Count)];
             Race = RACES[random.Next(RACES.Count)];
