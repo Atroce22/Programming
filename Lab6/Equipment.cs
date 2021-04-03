@@ -13,6 +13,7 @@ namespace Lab6
         private int price = 0;
         private int damage = 0;
 
+        public static int operator +(Equipment equipment, Equipment equipment1) { return equipment.damage + equipment1.damage; }
         public Equipment() { }
         public Equipment(int dmg)
         {
