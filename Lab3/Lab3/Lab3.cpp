@@ -20,8 +20,8 @@ int main()
     player->display();
     reset_level(*player);
     player->display();
-    player->get_left_hand()->set_damage(50);
-    player->get_right_hand().set_damage(25);
+    player->get_left_hand()->set_damage(1000);
+    player->get_right_hand().set_damage(-25);
     Character::display(player);
     std::cout << "Copy cZonstructor" << std::endl;
     Character* new_player = new Character(*player);
