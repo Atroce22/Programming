@@ -5,26 +5,41 @@
 
 int Character::counter = 0;
 
-void Character::init(const std::string& name, Equipment* left, Equipment* right)
+Character::Character(const std::string& name, const std::string& race, int level, Equipment* left, Equipment* right)
 {
     this->name = name;
-    race = "Human";
-    level = 1;
+    this->race = race;
+    this->level = level;
     left_hand = left;
     right_hand = right;
     id = counter++;
     update_data();
 }
 
-void Character::init()
+Character::Character(const std::string& name)
 {
+    this->name = name;
+    race = races[std::rand() % races.size()];
+    level = std::rand() % 10 + 1;
+    left_hand = new Equipment(std::rand() % 10 + 1);
+    right_hand = new Equipment(std::rand() % 10 + 1);
+    id = counter++;
+    update_data();
+}
 
+Character::Character()
+{
     name = names[std::rand() % names.size()];
     race = races[std::rand() % races.size()];
     level = std::rand() % 10 + 1;
     left_hand = new Equipment(std::rand() % 10 + 1);
     right_hand = new Equipment(std::rand() % 10 + 1);
     id = counter++;
+    update_data();
+}
+
+Character::Character(const Character& character) : id(character.id), name(character.name), race(character.race), level(character.level), left_hand(new Equipment(*character.left_hand)), right_hand(character.right_hand)
+{
     update_data();
 }
 

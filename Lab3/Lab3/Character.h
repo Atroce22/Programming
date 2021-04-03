@@ -9,9 +9,20 @@ class Character
 {
 public:
     virtual ~Character() { std::cout << name <<" Destroyed!\n"; };
-    void init(const std::string& name, Equipment* left, Equipment* right);
-    void init();
-    std::string read();
+    Character(const std::string& name, const std::string& race, int level, Equipment* left, Equipment* right);
+    Character(const std::string& name);
+    Character();
+    Character(const Character& character);
+    Character& operator = (const Character& character)
+    {
+        name = character.name;
+        race = character.race;
+        level = character.level;
+        id = character.id;
+        update_data();
+        return *this;
+    }
+    static std::string read();
     void display();
     void level_up();
     void add(int exp);

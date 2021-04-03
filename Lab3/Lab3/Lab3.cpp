@@ -11,9 +11,8 @@ int main()
     std::srand(std::time(0));
 
     //Динамический объект
-    Character* player = new Character();
-    std::string name = player->read();
-    player->init(name, new Equipment(1, "Sword"), new Equipment(10, "Dagger"));
+    std::string name = Character::read();
+    Character* player = new Character(name, "Human", 3, new Equipment(1, "Sword"), new Equipment(10, "Dagger"));
     player->display();
     ++(*player);
     player->display();
@@ -24,15 +23,18 @@ int main()
     player->get_left_hand()->set_damage(50);
     player->get_right_hand().set_damage(25);
     Character::display(player);
-    delete player;
+    std::cout << "Copy cZonstructor" << std::endl;
+    Character* new_player = new Character(*player);
+    
+    Character::display(new_player);
 
+    std::cout << "Player3" << std::endl;
+    Character player3;
+    player3 = *new_player;
+    Character::display(&player3);
 
     //Массив объектов
     Character* players = new Character[PLAYERS_COUNT];
-    for (int i = 0; i < PLAYERS_COUNT; i++)
-    {
-        players[i].init();
-    }
     for (int i = 0; i < PLAYERS_COUNT; i++)
     {
         players[i].display();
@@ -44,8 +46,7 @@ int main()
     Character* playersList[PLAYERS_COUNT];
     for (int i = 0; i < PLAYERS_COUNT; i++)
     {
-        playersList[i] = new Character();
-        playersList[i]->init();
+        playersList[i] = new Character("Ivan " + std::to_string(i + 1));
         playersList[i]->display();
     }
     for (int i = 0; i < PLAYERS_COUNT; i++)
@@ -58,7 +59,6 @@ int main()
     for (int i = 0; i < 3; i++)
     {
         playersList2.push_back(new Character());
-        playersList2[i]->init();
         playersList2[i]->display();
     }
 
