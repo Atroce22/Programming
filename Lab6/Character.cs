@@ -108,7 +108,14 @@ namespace Lab6
             }
         }
 
-       
+        public Equipment GetLeftHand()
+        {
+            return leftHand;
+        }
+        public Equipment GetRightHand()
+        {
+            return rightHand;
+        }
 
         public float GetDamage()
         {
@@ -128,6 +135,7 @@ namespace Lab6
                 return leftHand + rightHand;
             return 0;
         }
+        
     
 }
 }

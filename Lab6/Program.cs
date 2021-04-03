@@ -22,6 +22,9 @@ namespace Lab6
             LevelUp(ref player);
             player++;
             Character.Display(player);
+            player.GetLeftHand().SetDamage(-1);
+            player.GetRightHand().SetDamage(1000);
+            Character.Display(player);
 
             Character player1 = new Character(name);
             player1.Display();
