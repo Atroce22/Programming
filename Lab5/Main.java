@@ -2,8 +2,13 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.Random;
 
-
 class Character {
+    static class Increase{
+        public  static int inc(int num)
+           {
+            return ++num;
+           }
+        }
     private String name;
     private String race;
     private int level = 0;
@@ -31,9 +36,9 @@ class Character {
     public void init() {
         name = NAMES.get(random.nextInt(NAMES.size()));
         race = RACES.get(random.nextInt(RACES.size()));
-        level = random.nextInt(10 + 1);
-        left_hand = new Equipment(random.nextInt(25 + 1));
-        right_hand = new Equipment(random.nextInt(25 + 1));
+        level = random.nextInt(10) + 1;
+        left_hand = new Equipment(random.nextInt(25) + 1);
+        right_hand = new Equipment(random.nextInt(25) + 1);
         update_data();
     }
 
@@ -49,7 +54,7 @@ class Character {
     }
 
     public void level_up() {
-        level++;
+        level = Increase.inc(level);
         update_data();
     }
 
@@ -134,7 +139,18 @@ class Equipment {
 public class Main {
 	  public static void main(String[] args) { 
         Character player = new Character();
-        player.init();
+        player.init("Player Name");
         player.display();
+
+        player.level_up();
+        player.display();
+
+        Character [] players = new Character[5];
+        for (int i = 0; i < players.length; i++)
+        {
+            players[i] = new Character();
+            players[i].init();
+            players[i].display();
+        }
     }
 }
