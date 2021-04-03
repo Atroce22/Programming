@@ -35,6 +35,16 @@ namespace Lab6
                 players[i] = new Character();
                 players[i].Display();
             }
+
+            Character[,] newplayers = new Character[2, 2];
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    newplayers[i, j] = new Character();
+                    newplayers[i, j].Display();
+                }
+            }
             Console.WriteLine("Created characters count: " + Character.GetCounter());
             Console.ReadKey();
         }
