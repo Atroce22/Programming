@@ -3,6 +3,8 @@
 #include <iostream>
 #include <ctime>
 
+int Character::counter = 0;
+
 void Character::init(const std::string& name, Equipment* left, Equipment* right)
 {
     this->name = name;
@@ -10,7 +12,25 @@ void Character::init(const std::string& name, Equipment* left, Equipment* right)
     level = 1;
     left_hand = left;
     right_hand = right;
+    id = counter++;
     update_data();
+}
+
+void Character::init()
+{
+
+    name = names[std::rand() % names.size()];
+    race = races[std::rand() % races.size()];
+    level = std::rand() % 10 + 1;
+    left_hand = new Equipment(std::rand() % 10 + 1);
+    right_hand = new Equipment(std::rand() % 10 + 1);
+    id = counter++;
+    update_data();
+}
+
+int Character::get_counter()
+{
+    return counter;
 }
 
 std::string Character::read()
@@ -21,9 +41,15 @@ std::string Character::read()
     return s;
 }
 
+void Character::display(Character* character)
+{
+    character->display();
+}
+
+
 void Character::display()
 {
-    std::cout << "Name: " << name << "\nRace: " << race << "\nLevel: " << level << "\nExperience: " << experience << " \/ 100" << "\nHealth: " << health << "\nMana: " << mana << "\nDamage: " << get_damage() << " (" << damage << "+" << get_equipment_damage() << ")"   << "\n";
+    std::cout << "ID: "<< id << "\nName: " << name << "\nRace: " << race << "\nLevel: " << level << "\nExperience: " << experience << " \/ 100" << "\nHealth: " << health << "\nMana: " << mana << "\nDamage: " << get_damage() << " (" << damage << "+" << get_equipment_damage() << ")"   << "\n";
     if (left_hand != nullptr && left_hand->get_name() != "")
     {
         std::cout << left_hand->get_name() << ": " << left_hand->get_damage() << std::endl;
@@ -34,6 +60,7 @@ void Character::display()
     }
     std::cout << std::endl;
 }
+
 
 void Character::level_up()
 {
@@ -64,16 +91,6 @@ void Character::take_damage(int dmg)
     }
 }
 
-void Character::init()
-{
-
-    name = names[std::rand() % names.size()];
-    race = races[std::rand() % races.size()];
-    level = std::rand() % 10 + 1;
-    left_hand = new Equipment(std::rand() % 10 + 1);
-    right_hand = new Equipment(std::rand() % 10 + 1);
-    update_data();
-}
 
 void Character::update_data()
 {

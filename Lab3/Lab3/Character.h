@@ -39,6 +39,8 @@ public:
     }
 
     friend void reset_level(Character& character);
+    static void display(Character* character);
+    static int get_counter();
 
 private:
     void update_data();
@@ -53,6 +55,8 @@ private:
     int experience = 0;
     float damage = 0;
     bool dead = false;
+    int id = 0;
+    static int counter ;
 
     Equipment* left_hand = nullptr;
     Equipment* right_hand = nullptr;

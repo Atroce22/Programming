@@ -23,7 +23,7 @@ int main()
     player->display();
     player->get_left_hand()->set_damage(50);
     player->get_right_hand().set_damage(25);
-    player->display();
+    Character::display(player);
     delete player;
 
 
@@ -68,4 +68,5 @@ int main()
     }
     playersList2.clear();
 
+    std::cout << "Characters created count: " << Character::get_counter();
 }
